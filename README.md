@@ -1,6 +1,6 @@
 # GDI
 
-##Introduction
+## Introduction
 by kinator
 
 This project is a database management and visualisation website for the professors of the IUTLCO.
