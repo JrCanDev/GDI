@@ -4,6 +4,6 @@
 In the source directory, to install all the dependencies :
 
 ```bash
-docker build . -t php-test
+composer install
 ```
 Will install all dependecies into a folder ``vendor``.
