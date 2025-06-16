@@ -343,20 +343,19 @@ function tabRP($db_p, $id_ens_p, $period) {
     }
 }
 
-//Tableau SAE
-function tabSAE($db_p, $id_ens_p) {
+//Tableau Intervention SAE
+function tabInterventionSAE($db_p, $id_ens_p) {
     try {
         $fields = array(
             "id_cours",
             "type_seance",
             "intitule_cours",
 	    "commentaire_seance",
-            "duree_seance",
         );
         $query = "SELECT ".implode(", ", $fields)." ";
         $query .= "FROM details ";
         $query .= "WHERE id_ens = :id_ens ";
-        $query .= "AND id_cours like '%SAE%' AND annee_scolaire = '" . SELECTED_YEAR . "' ";
+        $query .= "AND id_cours like 'SAE%' AND annee_scolaire = '" . SELECTED_YEAR . "' ";
         $query .= "ORDER BY id_cours, type_seance";
 
         $statement = $db_p->prepare($query);
@@ -364,11 +363,58 @@ function tabSAE($db_p, $id_ens_p) {
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         if ($result) {
-            echo "<table class='w3-table w3-bordered w3-border w3-margin-bottom'><thead class='w3-light-gray'><tr><th colspan=3>Encadrement de SAE</th></tr></thead>";
+            echo "<table class='w3-table w3-bordered w3-border w3-margin-bottom'><thead class='w3-light-gray'><tr><th colspan=2>Intervention dans les SAE</th></tr></thead>";
             foreach ($result as $row) {
                 $id_cours = sanitize($row['id_cours']);
                 $intitule_cours = sanitize($row['intitule_cours']);
 		$commentaire_seance = sanitize($row['commentaire_seance']);
+
+                echo "<tbody><tr><td class='w3-border'>
+                <form method='GET'>
+                    <input type='hidden' name='page' value='services'>
+                    <input type='hidden' name='id' value='" . $id_cours . "'>
+                    <input type='hidden' name='action' value='enseignement'>
+                    <button type='submit' class='w3-text-blue w3-left-align' 
+                    style='cursor: pointer; border: none; background-color: white; font-size: 13px;'>
+                    <b>" . $id_cours . " - " . $intitule_cours . "</b>
+                    </button>
+                </form></td>
+                <td class='w3-border'>" . $commentaire_seance . "</td></tr>";
+            }
+            echo "</tbody></table>";
+        }
+
+        $statement->closeCursor();
+        $result = null;
+    } catch (Error|Exception $e) {
+        echo 'Erreur' . $e->getMessage();
+    }
+}
+
+//Tableau Encadrement SAE
+function tabEncadrementSAE($db_p, $id_ens_p) {
+    try {
+        $fields = array(
+            "id_cours",
+            "type_seance",
+            "intitule_cours",
+            "duree_seance",
+        );
+        $query = "SELECT ".implode(", ", $fields)." ";
+        $query .= "FROM details ";
+        $query .= "WHERE id_ens = :id_ens ";
+        $query .= "AND id_cours like 'ENC-SAE%' AND annee_scolaire = '" . SELECTED_YEAR . "' ";
+        $query .= "ORDER BY id_cours, type_seance";
+
+        $statement = $db_p->prepare($query);
+        $statement->bindValue(':id_ens', $id_ens_p, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            echo "<table class='w3-table w3-bordered w3-border w3-margin-bottom'><thead class='w3-light-gray'><tr><th colspan=2>Encadrement de SAE</th></tr></thead>";
+            foreach ($result as $row) {
+                $id_cours = sanitize($row['id_cours']);
+                $intitule_cours = sanitize($row['intitule_cours']);
                 $duree_seance = sanitize($row['duree_seance']);
 
                 echo "<tbody><tr><td class='w3-border'>
@@ -381,7 +427,7 @@ function tabSAE($db_p, $id_ens_p) {
                     <b>" . $id_cours . " - " . $intitule_cours . "</b>
                     </button>
                 </form></td>
-                <td class='w3-border'>" . $commentaire_seance . "H</td><td class='w3-border'>" . toFloat($duree_seance) . "H</td></tr>";
+                <td class='w3-border'>" . toFloat($duree_seance) . "H</td></tr>";
             }
             echo "</tbody></table>";
         }

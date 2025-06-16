@@ -91,8 +91,12 @@ include "$root/inc/head.php";
         <?php for ($i = 1; $i<7; $i++) tabRP($db, $id_ens, $i); ?>
 
         <div class="w3-border w3-margin-top w3-margin-bottom"></div>
-        <h3><b>SAE</b> <i class="fa fa-arrow-right"></i> <mark style="background-color:lime;">apparait dans l'EDT</mark></h3>
-        <?php tabSAE($db, $id_ens); ?>
+        <h3><b>Intervention en SAE</b> <i class="fa fa-arrow-right"></i> <mark style="background-color:lime;">apparait dans l'EDT</mark></h3>
+        <?php tabInterventionSAE($db, $id_ens); ?>
+
+        <div class="w3-border w3-margin-top w3-margin-bottom"></div>
+        <h3><b>Encadrement de SAE</b> <i class="fa fa-arrow-right"></i> <mark style="background-color:red;">n'apparait pas dans l'EDT</mark></h3>
+        <?php tabEncadrementSAE($db, $id_ens); ?>
 
         <div class="w3-border w3-margin-top w3-margin-bottom"></div>
         <h3><b>EVT</b> <i class="fa fa-arrow-right"></i> <mark style="background-color:red;">n'apparait pas dans l'EDT</mark></h3>
