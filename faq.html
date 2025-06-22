@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>GDI - FAQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://gdi.jrcan.dev/css/styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .fullHead {
+        flex: 1;
+      }
+
+      .faq-container {
+        max-width: 1600px;
+        margin: auto;
+      }
+
+      .faq-item {
+        border-bottom: 1px solid #30363d;
+        padding: 1rem 0;
+      }
+
+      .faq-question {
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: bold;
+        position: relative;
+        padding-right: 1.5rem;
+      }
+
+      .faq-question::after {
+        content: '+';
+        position: absolute;
+        right: 0;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .faq-item.active .faq-question::after {
+        content: '−';
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        font-size: 1rem;
+        padding-left: 0.5rem;
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 20000px;
+        padding-top: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="fullHead">
+      <div class="menutop">          
+        <div class="w3-display-container top_header" style="min-height: 100px; max-height: 200px;">
+          <div class="w3-padding w3-display-left logo-container">
+            <a href="https://gdi.jrcan.dev"><img src="/img/logo.png" alt="Logo" class="logo" style="height: 75px"></a>
+          </div>
+          <div class="w3-padding w3-display-middle w3-center">
+            <p class="title" style="font-size:24px;"><b>Gestion du Département informatique</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-container">
+        La nouvelle version de GDI est en ligne. Pour y accéder, vous devrez vous créer un compte (voir question Q1 ci-dessous). De plus, c'est une version du logiciel qui n'est pas finalisée. Il est possible que des bugs ou quelques fautes d’orthographe soient encore présents !<br />
+        <br />
+        Vous pouvez, à tout moment, basculer d'une année scolaire à une autre en la sélectionnant dans la zone de sélection en haut à droite de la page.<br />
+        <br />
+        Par rapport à la version précédente, il manque la partie "statistiques" et "budget" qui seront développées plus tard. De plus, une page regroupant l'ensemble des contacts avec leurs compétences sera également développée plus tard afin d'aider dans la recherche de vacataires.<br />
+        <br />
+        Pour toute question ou remarque, vous savez qui contacter (Rémi S.) !
+        <br />
+
+
+        <div class="faq-item">
+          <div class="faq-question">Q1 - Comment se connecter ?</div>
+          <div class="faq-answer">
+            Pour pouvoir vous connecter à GDI, vous devez enseigner au département informatique de l'IUTLCO.<br />
+            Dans ce cas, rendez-vous sur <a href="https://gdi.jrcan.dev" target="_blank">GDI</a>.<br />
+            <center><img src="./img/073909_s.png" width="80%"></center><br />
+            Si vous avez déjà un compte, cliquez sur "Se connecter". Renseignez ensuite le nom d'utilisateur que vous avez choisi ainsi que votre mot de passe.<br />
+            Si vous n'avez pas encore de compte, cliquez sur "Créer un utilisateur" et remplissez le formulaire.<br />
+            <center><img src="./img/074035_s1.png" width="80%"></center>
+            Vous pouvez évidemment choisir votre nom d'utilisateur et votre mot de passe. <strong>Attention aux champs entourés sur l'image ci-dessus !</strong> Vous devez absolument indiquer vos nom et prénom avec précision. En cas d'échec, un message disant "Le professeur est déjà lié à un utilisateur" apparaîtra. Vérifiez que vous n'avez pas inversé nom et prénom. Si votre nom ou prénom est composé ou contient des caractères spéciaux, contactez Rémi S.<br />
+            Une fois votre compte créé, vous pouvez vous connecter.<br /><br />
+            Après connexion, vous arrivez sur l'écran d'accueil ci-dessous.
+            <center><img src="./img/074819_s.png" width="80%"></center>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Q2 - Comment voit-on son service ?</div>
+          <div class="faq-answer">
+            Connectez-vous. Depuis la page d'accueil, cliquez sur "Services" en haut. Depuis la page des services, il est possible de consulter :
+            <ul>
+              <li>les services par enseignant (en haut de la page)<br />
+                <center><img src="./img/074846_s.png" width="80%"></center>
+              </li>
+              <li>les services par ressources/portfolio/SAE (au milieu de la page)<br />
+                <center><img src="./img/074855_s.png" width="80%"></center>
+              </li>
+              <li>les tâches administratives (en bas de la page)<br />
+                <center><img src="./img/074914_s.png" width="80%"></center>
+              </li>
+            </ul>
+            Pour connaître votre service, cliquez sur votre nom en haut de la page des services. Sur votre page de service, vous trouverez 3 à 4 onglets (en fonction de votre statut : titulaire ou vacataire).<br />
+            <center><img src="./img/075001_s1.png" width="80%"></center><br />
+            Dans le premier onglet, vous verrez un résumé du nombre d'heures de votre service.<br />
+            Le second onglet, "Détails", vous donne le détail de votre service. Si vous ne comprenez rien à la section SAE, voir la question Q3.<br />
+            <center><img src="./img/075002_s.png" width="80%"></center><br />
+            Le troisième onglet vous permet d’indiquer vos disponibilités afin que les personnes en charge des emplois du temps puissent vous placer sur des créneaux qui vous conviennent.<br />
+            Finalement, si vous êtes vacataire, un dernier onglet est disponible, vous donnant toutes les informations nécessaires pour la création de votre dossier ULCO et votre compte numérique pour l'accès à Moodle.<br />
+            <br />
+            Pour savoir avec qui vous travaillez dans une ressource particulière, cliquez simplement sur la ressource au milieu de la page des services.<br />
+            <center><img src="./img/075003_s.png" width="80%"></center><br />
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Q3 - Comment lit-on la section SAE de son service ?</div>
+          <div class="faq-answer">
+            Si vous regardez le détail des intervenants dans une SAE, vous verrez que vous avez un nombre d’heures égal à 0 affecté. Dans un souci de simplification de la création des emplois du temps, toutes les heures à faire par les étudiants ont été déclarées comme de l'autonomie.<br />
+            <center><img src="./img/075005_s1.png" width="80%"></center><br />
+            En parallèle de votre nom, vous verrez, dans la colonne "Commentaire", le nombre d'heures payées ainsi que le mode de paiement.<br /><br />
+            Vous retrouverez un résumé de vos interventions et des paiements de SAE sur votre page de service.<br />
+            <center><img src="./img/075004_s1.png" width="80%"></center>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Q4 - C'est quoi la maquette ?</div>
+          <div class="faq-answer">
+            La maquette est une vue des enseignements regroupés par semaine. L'année scolaire commence à la semaine 35 ou 36 (fin août, début septembre) et se termine à la semaine 27 (fin juin, début juillet).<br />
+            La maquette vous permettra, en fin d'année scolaire, de retrouver facilement les numéros de semaine de vos enseignements au moment d'entrer votre service dans la base de l'ULCO.<br />
+            <br />
+            La maquette est disponible selon deux vues :
+            <ul>
+              <li>
+                La première vue, celle sur laquelle vous arrivez en cliquant sur "Maquette" dans la barre de menu en haut de GDI, est la vue de toutes les semaines de l'année scolaire. Chaque case correspond à une semaine.<br />
+                <center><img src="./img/075010_s.png" width="80%"></center>
+                Un système de filtre permet de n'afficher que ce dont vous avez besoin.<br />
+                <center><img src="./img/075018_s.png" width="80%"></center>
+                Sous chaque case se trouve le total d'heures affichées. Cette information sera utile aux créateurs des emplois du temps !
+              </li>
+              <li>
+                La seconde vue est accessible en cliquant sur l'icône en forme d’horloge située juste en haut à gauche de la page, sous "Accueil". Sur cette page, des onglets permettent de sélectionner le semestre à afficher. Pour ce semestre, il est possible de voir, en fonction de la ressource et du numéro de semaine, le nombre d'heures à placer.<br />
+                <center><img src="./img/075250_s.png" width="80%"></center>
+                De plus, sur cette seconde vue, en bout de ligne, un total est affiché, et un code couleur indique si le bon nombre d'heures a été placé (vert), s’il manque des heures (rouge), ou s’il y a des heures en trop (bleu).<br />
+                <center><img src="./img/075337_s.png" width="80%"></center>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Q5 - Et qu'est-ce qu'on ne voit pas ?</div>
+          <div class="faq-answer">
+            Ça :<br />
+            <center><img src="./img/075443_s.png" width="80%"></center><br />
+            Les coordonnées des vacataires sont visibles par les personnes qui créent les emplois du temps.<br />
+            La base de données est visible et modifiable par la personne en charge de la construction des services.
+          </div>
+        </div>
+
+      <div style="left:0;"></div>
+
+    </div>
+
+    <script>
+      document.querySelectorAll('.faq-question').forEach((question) => {
+        question.addEventListener('click', () => {
+          const item = question.parentElement;
+          item.classList.toggle('active');
+        });
+      });
+    </script>
+
+
+    <footer class="w3-container w3-padding-16 w3-center w3-text-white main-background-color w3-xlarge">
+      <a href="https://github.com/JrCanDev/GDI" target="_blank"><i class="fab fa-github w3-hover-opacity" aria-hidden="true"></i></a>
+      <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      <p class="w3-medium">Hébergé par <a href="https://github.com/JrCanDev" target="_blank">JrCanDev</a></p>
+    </footer>
+
+  </body>
+</html>
+
