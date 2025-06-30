@@ -58,12 +58,12 @@
         <b>Maquette</b>
       </button>
     </form>
-    <!-- <form method='GET'>
+    <form method='GET'>
       <input type='hidden' name='page' value='stats'>
       <button type='submit' class="w3-bar-item w3-button headButton">
         <b>Stats/données brutes</b>
       </button>
-    </form> -->
+    </form>
     <?php if (authClass::checkPriviledgeVacataire($_SESSION['user']['nom_util'])) { ?>
     <form method='GET'>
       <input type='hidden' name='page' value='vaca'>

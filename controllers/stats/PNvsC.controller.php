@@ -37,31 +37,31 @@ function getCompTab($db, $BUT, $aux = '') {
     } elseif ($aux === 'sae1') {
       switch ($BUT) {
         case '1' :
-          $sql .= "WHERE id_cours like 'SAE1.__' ";
+          $sql .= "WHERE id_cours = 'SAE1' ";
           break;
         case '2A' :
-          $sql .= "WHERE id_cours like 'SAE3.__' or id_cours like 'SAE3.A.__' ";
+          $sql .= "WHERE id_cours = 'SAE3' ";
           break;
         case '2B' :
-          $sql .= "WHERE id_cours like 'SAE3.__' or id_cours like 'SAE3.B.__' ";
+          $sql .= "WHERE id_cours = 'SAE3' ";
           break;
         case '3A' :
-          $sql .= "WHERE id_cours like 'SAE5.__' or id_cours like 'SAE5.A.__' ";
+          $sql .= "WHERE id_cours = 'SAE5' ";
           break;
       };
     } elseif ($aux === 'sae2') {
       switch ($BUT) {
         case '1' :
-          $sql .= "WHERE id_cours like 'SAE2.__' ";
+          $sql .= "WHERE id_cours = 'SAE2' ";
           break;
         case '2A' :
-          $sql .= "WHERE id_cours like 'SAE4.__' or id_cours like 'SAE4.A.__' ";
+          $sql .= "WHERE id_cours = 'SAE4' ";
           break;
         case '2B' :
-          $sql .= "WHERE id_cours like 'SAE4.__' or id_cours like 'SAE4.B.__' ";
+          $sql .= "WHERE id_cours = 'SAE4' ";
           break;
         case '3A' :
-          $sql .= "WHERE id_cours like 'SAE6.__' or id_cours like 'SAE6.A.__' ";
+          $sql .= "WHERE id_cours = 'SAE6' ";
           break;
       };
     } else {
@@ -93,36 +93,35 @@ function getCompTab($db, $BUT, $aux = '') {
       if ($aux === 'sae1') {
         switch ($BUT) {
           case '1' :
-            $sql2 .= "WHERE id_cours like 'SAE1.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE1.%' ";
             break;
           case '2A' :
-            $sql2 .= "WHERE id_cours like 'SAE3.A.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE3.%' and type_seance = 'SAE-FI' ";
             break;
           case '2B' :
-            $sql2 .= "WHERE id_cours like 'SAE3.B.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE3.%' and type_seance = 'SAE-FI' ";
             break;
           case '3A' :
-            $sql2 .= "WHERE id_cours like 'SAE5.A.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE5.A.%' and type_seance = 'SAE-FI' ";
             break;
         };
       } else {
         switch ($BUT) {
           case '1' :
-            $sql2 .= "WHERE id_cours like 'SAE2.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE2.%' ";
             break;
           case '2A' :
-            $sql2 .= "WHERE id_cours like 'SAE4.A.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE4.A.%' and type_seance = 'SAE-FI' ";
             break;
           case '2B' :
-            $sql2 .= "WHERE id_cours like 'SAE4.B.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE4.B.%' and type_seance = 'SAE-FI' ";
             break;
           case '3A' :
-            $sql2 .= "WHERE id_cours like 'SAE6.A.__' ";
+            $sql2 .= "WHERE id_cours like 'SAE6.A.%' and type_seance = 'SAE-FI' ";
             break;
         };
       }
       $sql2 .= "AND annee_scolaire = '" . SELECTED_YEAR . "' ";
-
       $statement = $db->query($sql2);
       $volumeCalais = $statement->fetch(PDO::FETCH_ASSOC)['duree_seance'];
       
