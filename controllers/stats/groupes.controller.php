@@ -17,19 +17,25 @@ $sqlHeuresApp = "select sum(A1.duree_seance) as total_heures
 
 switch ($semester) {
   case '1':
-    $sqlCours .= "WHERE A.id_cours like '_1.__'
-                  AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+    $sqlCours .= "WHERE ((A.id_cours like '_1.__'
+                  AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE1.%' AND A.type_seance = 'SAE' AND A.id_ens = 'SAE' )) ";
 
-    $sqlHeures .= "WHERE id_cours like '_1.__'
-                  AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+    $sqlHeures .= "WHERE ((id_cours like '_1.__'
+                  AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE1.%' AND type_seance = 'SAE' AND id_ens = 'SAE' )) ";
     break;
 
   case '2':
-    $sqlCours .= "WHERE A.id_cours like '_2.__'
-                  AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+    // $sqlCours .= "WHERE A.id_cours like '_2.__'
+    //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
 
-    $sqlHeures .= "WHERE id_cours like '_2.__'
-                  AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+    // $sqlHeures .= "WHERE id_cours like '_2.__'
+    //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+		  
+    $sqlCours .= "WHERE ((A.id_cours like '_2.__'
+                  AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE2.%' AND A.type_seance = 'SAE' AND A.id_ens = 'SAE' )) ";
+
+    $sqlHeures .= "WHERE ((id_cours like '_2.__'
+                  AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE2.%' AND type_seance = 'SAE' AND id_ens = 'SAE' )) ";
     break;
 
   case '3':
@@ -44,11 +50,17 @@ switch ($semester) {
                         AND (A2.type_seance='" . $typeCM . "' or A2.type_seance='" . $typeTD . "')
                         AND A2.mutualisation IS NOT NULL ";
     } else {
-      $sqlCours .= "WHERE A.id_cours like '_3.__'
-                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+      // $sqlCours .= "WHERE A.id_cours like '_3.__'
+      //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
 
-      $sqlHeures .= "WHERE id_cours like '_3.__'
-                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+      // $sqlHeures .= "WHERE id_cours like '_3.__'
+      //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+
+      $sqlCours .= "WHERE ((A.id_cours like '_3.__'
+                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE3.%' AND A.type_seance = 'SAE-FI' AND A.id_ens = 'SAE' )) ";
+
+      $sqlHeures .= "WHERE ((id_cours like '_3.__'
+                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE3.%' AND type_seance = 'SAE-FI' AND id_ens = 'SAE' )) ";
     }
     break;
 
@@ -76,11 +88,31 @@ switch ($semester) {
                           AND A2.mutualisation IS NOT NULL ";
       }
     } else {
-      $sqlCours .= "WHERE (A.id_cours like '_4.__' or A.id_cours like '_4.A.__')
-                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+      if ($typeTP == 'TPD'){
+        // $sqlCours .= "WHERE (A.id_cours like '_4.__' or A.id_cours like '_4.B.__')
+        //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
 
-      $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.A.__')
-                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+        // $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.B.__')
+        //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+		      
+	$sqlCours .= "WHERE (((A.id_cours like '_4.__' or A.id_cours like '_4.B.__') 
+                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE4.B.%' AND A.type_seance = 'SAE-FI' AND A.id_ens = 'SAE' )) ";
+
+      $sqlHeures .= "WHERE (((id_cours like '_4.__' or id_cours like '_4.B.__')
+                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE4.B.%' AND type_seance = 'SAE-FI' AND id_ens = 'SAE' )) ";
+       } else {
+        // $sqlCours .= "WHERE (A.id_cours like '_4.__' or A.id_cours like '_4.A.__')
+        //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+
+        // $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.A.__')
+        //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+
+        $sqlCours .= "WHERE (((A.id_cours like '_4.__' or A.id_cours like '_4.A.__') 
+                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE4.A.%' AND A.type_seance = 'SAE-FI' AND A.id_ens = 'SAE' )) ";
+
+      $sqlHeures .= "WHERE (((id_cours like '_4.__' or id_cours like '_4.A.__')
+                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE4.A.%' AND type_seance = 'SAE-FI' AND id_ens = 'SAE' )) ";
+       }
     }
     break;
 
@@ -108,11 +140,17 @@ switch ($semester) {
                           AND A2.mutualisation IS NOT NULL ";
       }
     } else {
-      $sqlCours .= "WHERE (A.id_cours like '_5.__' or A.id_cours like '_5.A.__')
-                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+      // $sqlCours .= "WHERE (A.id_cours like '_5.__' or A.id_cours like '_5.A.__')
+      //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
 
-      $sqlHeures .= "WHERE (id_cours like '_5.__' or id_cours like '_5.A.__')
-                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+      // $sqlHeures .= "WHERE (id_cours like '_5.__' or id_cours like '_5.A.__')
+      //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+
+      $sqlCours .= "WHERE (((A.id_cours like '_5.__' or A.id_cours like '_5.A.__')
+                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE5.A.%' AND A.type_seance = 'SAE-FI' AND A.id_ens = 'SAE' )) ";
+
+      $sqlHeures .= "WHERE (((id_cours like '_5.__' or id_cours like '_5.A.__')
+                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE5.A.%' AND type_seance = 'SAE-FI' AND id_ens = 'SAE' )) ";
     }
     break;
 
@@ -140,11 +178,17 @@ switch ($semester) {
                           AND A2.mutualisation IS NOT NULL ";
       }
     } else {
-      $sqlCours .= "WHERE (A.id_cours like '_6.__' or A.id_cours like '_6.A.__')
-                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
+      // $sqlCours .= "WHERE (A.id_cours like '_6.__' or A.id_cours like '_6.A.__')
+      //               AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "') ";
 
-      $sqlHeures .= "WHERE (id_cours like '_6.__' or id_cours like '_6.A.__')
-                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+      // $sqlHeures .= "WHERE (id_cours like '_6.__' or id_cours like '_6.A.__')
+      //               AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
+
+      $sqlCours .= "WHERE (((A.id_cours like '_6.__' or A.id_cours like '_6.A.__')
+                    AND (A.type_seance='" . $typeCM . "' or A.type_seance='" . $typeTD . "' or A.type_seance='" . $typeTP . "')) OR ( A.id_cours like 'SAE6.A.%' AND A.type_seance = 'SAE-FI' AND A.id_ens = 'SAE' )) ";
+
+      $sqlHeures .= "WHERE (((id_cours like '_6.__' or id_cours like '_6.A.__')
+                    AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "')) OR ( id_cours like 'SAE6.A.%' AND type_seance = 'SAE-FI' AND id_ens = 'SAE' )) ";
     }
     break;
 }

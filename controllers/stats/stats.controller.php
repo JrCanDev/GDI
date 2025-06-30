@@ -20,14 +20,14 @@ function getTime($db, $semestre = '', $app = '', $typeCM = '', $typeTD = '', $ty
       $sqlHeures .= "WHERE id_cours like '_1.__' 
                     AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-      $sqlHeuresSAE .= "WHERE id_cours like 'SAE1.__' ";
+      $sqlHeuresSAE .= "WHERE id_cours like 'SAE1.%' ";
       break;
 
     case '2':
       $sqlHeures .= "WHERE id_cours like '_2.__' 
                     AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-      $sqlHeuresSAE .= "WHERE id_cours like 'SAE2.__' ";
+      $sqlHeuresSAE .= "WHERE id_cours like 'SAE2.%' ";
       break;
 
     case '3':
@@ -42,7 +42,7 @@ function getTime($db, $semestre = '', $app = '', $typeCM = '', $typeTD = '', $ty
         $sqlHeures .= "WHERE id_cours like '_3.__' 
                       AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-        $sqlHeuresSAE .= "WHERE id_cours like 'SAE3.A.__' ";
+        $sqlHeuresSAE .= "WHERE id_cours like 'SAE3.%' AND type_seance = 'SAE-FI' ";
       }
       break;
 
@@ -65,15 +65,15 @@ function getTime($db, $semestre = '', $app = '', $typeCM = '', $typeTD = '', $ty
         }
       } else {
         if ($typeTP == 'TPD'){
-          $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.A.__') 
+          $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.B.__') 
                         AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
   
-          $sqlHeuresSAE .= "WHERE id_cours like 'SAE4.B.__' ";
+          $sqlHeuresSAE .= "WHERE id_cours like 'SAE4.B.%' AND type_seance = 'SAE-FI' ";
         } else {
           $sqlHeures .= "WHERE (id_cours like '_4.__' or id_cours like '_4.A.__') 
                         AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-          $sqlHeuresSAE .= "WHERE id_cours like 'SAE4.A.__' ";
+          $sqlHeuresSAE .= "WHERE id_cours like 'SAE4.A.%' AND type_seance = 'SAE-FI' ";
         }
       }
       break;
@@ -99,7 +99,7 @@ function getTime($db, $semestre = '', $app = '', $typeCM = '', $typeTD = '', $ty
         $sqlHeures .= "WHERE (id_cours like '_5.__' or id_cours like '_5.A.__') 
                       AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-        $sqlHeuresSAE .= "WHERE id_cours like 'SAE5.A.__' ";
+        $sqlHeuresSAE .= "WHERE id_cours like 'SAE5.A.%' AND type_seance = 'SAE-FI' ";
       }
       break;
 
@@ -124,7 +124,7 @@ function getTime($db, $semestre = '', $app = '', $typeCM = '', $typeTD = '', $ty
         $sqlHeures .= "WHERE (id_cours like '_6.__' or id_cours like '_6.A.__') 
                       AND (type_seance='" . $typeCM . "' or type_seance='" . $typeTD . "' or type_seance='" . $typeTP . "') ";
 
-        $sqlHeuresSAE .= "WHERE id_cours like 'SAE6.A.__' ";
+        $sqlHeuresSAE .= "WHERE id_cours like 'SAE6.A.%' AND type_seance = 'SAE-FI' ";
       }
       break;
   }

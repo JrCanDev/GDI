@@ -604,7 +604,7 @@ include "$root/inc/head.php";
           <input type='hidden' name='page' value='stats'>
           <input type='hidden' name='semester' value="6">
           <input type='hidden' name='typeCM' value="CM">
-          <input type='hidden' name='typeTD' value="TD2">
+          <input type='hidden' name='typeTD' value="TD1">
           <input type='hidden' name='typeTP' value="TPB">
           <input type='hidden' name='action' value='groupes'>
             <button type='submit' class='w3-text-blue w3-left-align' 
@@ -613,7 +613,7 @@ include "$root/inc/head.php";
             </button>
           </form>
         </td>
-        <td class='w3-border'><?php $week = getTime($db, '6', '', 'CM', 'TD2', 'TPB') ?></td>
+        <td class='w3-border'><?php $week = getTime($db, '6', '', 'CM', 'TD1', 'TPB') ?></td>
         <td class='w3-border'><?= toFloat($week) ?> semaines</td>
       </tr>
     </tbody>

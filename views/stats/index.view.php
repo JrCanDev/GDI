@@ -17,7 +17,7 @@ include "$root/inc/head.php";
         </form>
     </div>
 
-    <!--<div class="w3-border w3-margin-top w3-margin-bottom"></div>
+    <div class="w3-border w3-margin-top w3-margin-bottom"></div>
 
     <h3 class="w3-margin-bottom w3-margin-top"><b>Nombre d'heures étudiants</b></h3>
     <form method='GET'>
@@ -27,7 +27,7 @@ include "$root/inc/head.php";
         style='cursor: pointer; border: none; background-color: white; font-size: 13px;'>
             <h4 style="margin: 0;"><b><i>Par semestre et groupes</i></b></h4>
         </button>
-    </form>-->
+    </form>
 
     <div class="w3-border w3-margin-top w3-margin-bottom"></div>
 
