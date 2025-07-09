@@ -108,21 +108,59 @@ try {
       if ($week != '') {
         try {
           $query = "SELECT num_sem, nom_ens, prenom_ens, id_cours, type_seance, duree_semaine, intitule_cours, commentaire_cours
-                    FROM maquette_ens
-                    WHERE num_sem = :num_sem ";
+          FROM maquette_ens
+          WHERE num_sem = :num_sem ";
+
+          $params = [ 'num_sem' => $num_sem ]; // Assure-toi que $num_sem est défini
+
           if ($filters !== null) {
-            $query .= "AND " . implode(' AND ', array_map(function($key) {
-              return "$key ilike :" . $key . " ";
-            }, array_keys($filters))) . " ";
-          }
-          $query .= "AND annee_scolaire = '" . SELECTED_YEAR . "' ORDER BY id_cours";
-          $stmt = $db->prepare($query);
-          $stmt->bindParam(':num_sem', $week);
-          if ($filters !== null) {
+            $filterClauses = [];
+
             foreach ($filters as $key => $value) {
-              $stmt->bindValue(':' . $key, '%' . $value . '%');
+              if ($key === 'type_seance' && strpos($value, ';') !== false) {
+                // Traitement spécial : plusieurs valeurs séparées par ;
+                $parts = explode(';', $value);
+                $orClauses = [];
+                foreach ($parts as $i => $part) {
+                  $paramName = $key . '_' . $i;
+                  $orClauses[] = "$key ilike :$paramName";
+                  $params[$paramName] = '%' . trim($part) . '%';
+                }
+                $filterClauses[] = '(' . implode(' OR ', $orClauses) . ')';
+              } else {
+                // Cas standard
+                $filterClauses[] = "$key ilike :$key";
+                $params[$key] = '%' . trim($value) . '%';
+              }
+            }
+
+            if (!empty($filterClauses)) {
+              $query .= 'AND ' . implode(' AND ', $filterClauses) . ' ';
             }
           }
+
+          // Clause sur l'année scolaire
+          $query .= "AND annee_scolaire = '" . SELECTED_YEAR . "' ORDER BY id_cours";
+          
+          $stmt = $db->prepare($query);
+          $stmt->bindParam(':num_sem', $week);
+          
+          if ($filters !== null) {
+            foreach ($filters as $key => $value) {
+              if ($key === 'type_seance' && strpos($value, ';') !== false) {
+                // Plusieurs valeurs pour type_seance
+                $parts = explode(';', $value);
+                foreach ($parts as $i => $part) {
+                  $paramName = ':' . $key . '_' . $i;
+                  $stmt->bindValue($paramName, '%' . trim($part) . '%');
+                }
+              } else {
+                // Cas standard
+                $stmt->bindValue(':' . $key, '%' . trim($value) . '%');
+              }
+            }
+          }
+          
           $stmt->execute();
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           $stmt->closeCursor();

@@ -62,7 +62,7 @@ CREATE TABLE maquette (
   num_sem VARCHAR(7) NOT NULL,
   id_cours VARCHAR(20) NOT NULL,
   type_seance VARCHAR(20) NOT NULL,
-  id_ens VARCHAR(3) NOT NULL,
+  id_ens VARCHAR(4) NOT NULL,
   duree_semaine DOUBLE PRECISION NOT NULL,
   PRIMARY KEY (annee_scolaire, num_sem, id_cours, type_seance, id_ens),
   FOREIGN KEY (annee_scolaire) REFERENCES annee_scolaire(id_as) ON UPDATE CASCADE,
