@@ -3,6 +3,7 @@
 define('SEMESTER_1', '1');
 define('SEMESTER_2', '2');
 define('SEMESTER_3', '3');
+define('SEMESTER_3APP', '3APP');
 define('SEMESTER_4', '4');
 define('SEMESTER_4APP', '4APP');
 define('SEMESTER_5', '5');
@@ -12,7 +13,7 @@ define('SEMESTER_6', '6');
 define('SEMESTER_6A', '6A');
 define('SEMESTER_6B', '6B');
 
-$pageTitle = 'Maquette des ressources : Heures pas semestres';
+$pageTitle = 'Maquette des ressources : Heures par semestres';
 $week_names = [];
 
 $year1 = substr(SELECTED_YEAR, 0, 4);
@@ -56,6 +57,9 @@ function getSearchCondition($semester) {
     case SEMESTER_3:
       return "id_cours LIKE 'R3.%'
               AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%') ";
+    case SEMESTER_3APP:
+      return "id_cours LIKE 'R3.%'
+              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPE') ";
     case SEMESTER_4:
       return "id_cours LIKE 'R4.%'
               AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%')
@@ -105,6 +109,7 @@ function getFormation($semester) {
     case SEMESTER_3:
     case SEMESTER_4:
       return "BUT2";
+    case SEMESTER_3APP:
     case SEMESTER_4APP:
       return "BUT2-APP";
     case SEMESTER_5:

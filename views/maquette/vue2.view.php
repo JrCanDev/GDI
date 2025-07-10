@@ -19,6 +19,7 @@ include "$root/inc/head.php";
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-white w3-text-blue" onclick="chooseTab(event, '1')">S1</button>
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '2')">S2</button>
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '3')">S3</button>
+      <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '3APP')">S3 APP</button>
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '4')">S4</button>
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '4APP')">S4 APP</button>
       <button class="w3-bar-item w3-button w3-border w3-border-blue w3-blue" onclick="chooseTab(event, '5')">S5</button>
@@ -39,6 +40,10 @@ include "$root/inc/head.php";
 
     <div id="3" class="tabcontent w3-bordered w3-border w3-border-blue w3-padding w3-left-align" style="margin: none; display: none;">
       <?= generateTable($db, '3'); ?>
+    </div>
+
+    <div id="3APP" class="tabcontent w3-bordered w3-border w3-border-blue w3-padding w3-left-align" style="margin: none; display: none;">
+      <?= generateTable($db, '3APP'); ?>
     </div>
 
     <div id="4" class="tabcontent w3-bordered w3-border w3-border-blue w3-padding w3-left-align" style="margin: none; display: none;">
