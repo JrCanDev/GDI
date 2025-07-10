@@ -247,9 +247,9 @@ function buildTableRows($db, $ressources, $services, $list_week, $week_names, $f
               continue;
           }
 
-          if (($current_week !== null && $week_name !== null) && ($current_week + 1) !== $week_name && $current_week !== $week_name) {
+          /*if (($current_week !== null && $week_name !== null) && ($current_week + 1) !== $week_name && $current_week !== $week_name) {
               $rows .= "<td class='w3-border w3-center w3-grey'></td>";
-          }
+          }*/
 
           $current_week = $week_name;
           $duree = isset($duree_lookup[$week][$seance]) ? $duree_lookup[$week][$seance] : 0;
@@ -297,7 +297,8 @@ function generateTable($db, $semester) {
                 $query = "SELECT num_sem
                           FROM semaines
                           WHERE num_sem > :week1
-                          AND num_sem < :week2";
+                          AND num_sem < :week2
+                          ORDER BY num_sem";
                 $stmt = $db->prepare($query);
                 $stmt->bindParam(':week1', $current_week, PDO::PARAM_STR);
                 $stmt->bindParam(':week2', $week, PDO::PARAM_STR);
