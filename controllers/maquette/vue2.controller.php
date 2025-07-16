@@ -51,49 +51,49 @@ try {
 function getSearchCondition($semester) {
   switch ($semester) {
     case SEMESTER_1:
-      return "id_cours LIKE 'R1.%'";
+      return "(id_cours LIKE 'R1.%' or id_cours LIKE 'P1.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE1.%' and annee_scolaire = '".SELECTED_YEAR."'))";
     case SEMESTER_2:
-      return "id_cours LIKE 'R2.%'";
+      return "(id_cours LIKE 'R2.%' or id_cours LIKE 'P2.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE2.%' and annee_scolaire = '".SELECTED_YEAR."'))";
     case SEMESTER_3:
-      return "id_cours LIKE 'R3.%'
-              AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%') ";
+      return "(id_cours LIKE 'R3.%' or id_cours LIKE 'P3.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE3.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%' or type_seance = 'SAE-FI') ";
     case SEMESTER_3APP:
-      return "id_cours LIKE 'R3.%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPE') ";
+      return "(id_cours LIKE 'R3.%' or id_cours LIKE 'P3.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE3.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPE' or type_seance = 'SAE-APP') ";
     case SEMESTER_4:
-      return "id_cours LIKE 'R4.%'
-              AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%')
+      return "(id_cours LIKE 'R4.%' or id_cours LIKE 'P4.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE4.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM' or type_seance LIKE 'TD%' or type_seance LIKE 'TP%' or type_seance = 'SAE-FI')
               AND NOT type_seance = 'TD3'
               AND NOT type_seance = 'TPE' ";
     case SEMESTER_4APP:
-      return "id_cours LIKE 'R4.%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPE') ";
+      return "(id_cours LIKE 'R4.%' or id_cours LIKE 'P4.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE4.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPE' or type_seance = 'SAE-APP') ";
     case SEMESTER_5:
-      return "id_cours LIKE 'R5.%'
-              AND (type_seance = 'CM' or type_seance = 'TD1' or type_seance = 'TPA' or type_seance = 'TPB') ";
+      return "(id_cours LIKE 'R5.%' or id_cours LIKE 'P5.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE5.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM' or type_seance = 'TD1' or type_seance = 'TPA' or type_seance = 'TPB' or type_seance = 'SAE-FI') ";
     case SEMESTER_5A:
-      return "id_cours LIKE 'R5.%'
+      return "(id_cours LIKE 'R5.%' or id_cours LIKE 'P5.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE5.%' and annee_scolaire = '".SELECTED_YEAR."'))
               AND id_cours NOT LIKE 'R5.B%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD2' or type_seance = 'TPC')
+              AND (type_seance = 'CM-APP' or type_seance = 'TD2' or type_seance = 'TPC' or type_seance = 'SAE-APP')
               AND NOT type_seance = 'TD3'
               AND NOT type_seance = 'TPD' ";
     case SEMESTER_5B:
-      return "id_cours LIKE 'R5.%'
+      return "(id_cours LIKE 'R5.%' or id_cours LIKE 'P5.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE5.%' and annee_scolaire = '".SELECTED_YEAR."'))
               AND id_cours NOT LIKE 'R5.A%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPD')
+              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPD' or type_seance = 'SAE-APP')
               AND NOT type_seance = 'TD2'
               AND NOT type_seance = 'TPC' ";
     case SEMESTER_6:
-      return "id_cours LIKE 'R6.%'
-              AND (type_seance = 'CM' or type_seance = 'TD1' or type_seance = 'TPA' or type_seance = 'TPB') ";
+      return "(id_cours LIKE 'R6.%' or id_cours LIKE 'P6.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE6.%' and annee_scolaire = '".SELECTED_YEAR."'))
+              AND (type_seance = 'CM' or type_seance = 'TD1' or type_seance = 'TPA' or type_seance = 'TPB' or type_seance = 'SAE-FI') ";
     case SEMESTER_6A:
-      return "id_cours LIKE 'R6.%'
+      return "(id_cours LIKE 'R6.%' or id_cours LIKE 'P6.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE6.%' and annee_scolaire = '".SELECTED_YEAR."'))
               AND id_cours NOT LIKE 'R6.B%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD2' or type_seance = 'TPC') ";
+              AND (type_seance = 'CM-APP' or type_seance = 'TD2' or type_seance = 'TPC' or type_seance = 'SAE-APP') ";
     case SEMESTER_6B:
-      return "id_cours LIKE 'R6.%'
+      return "(id_cours LIKE 'R6.%' or id_cours LIKE 'P6.%' or id_cours in (select id_cours from seances where id_cours LIKE 'SAE6.%' and annee_scolaire = '".SELECTED_YEAR."'))
               AND id_cours NOT LIKE 'R6.A%'
-              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPD')
+              AND (type_seance = 'CM-APP' or type_seance = 'TD3' or type_seance = 'TPD' or type_seance = 'SAE-APP')
               AND NOT type_seance = 'TD2'
               AND NOT type_seance = 'TPC' ";
     default:
