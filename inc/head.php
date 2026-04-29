@@ -17,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <?php displayFlashMessages(); // on lance le système de notification (obligation de le faire dans un body) ?>
     <div class="fullHead">
         <div class="menutop">
             <?php
