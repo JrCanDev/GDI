@@ -30,6 +30,10 @@ switch (GETPOST('page')) {
   case 'new_year':
     include "$root/controllers/ajout_annee/index.controller.php";
     break;
+  
+  case 'compte':
+    include "$root/controllers/compte/index.controller.php";
+    break;
 
     case null:
     include "$root/controllers/accueil/index.controller.php";
