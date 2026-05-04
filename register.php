@@ -77,7 +77,7 @@ $preventBackground = true;
             let pswc = document.forms["registerForm"]["pswconfirm"].value;
             if (psw != pswc) {
                 event.preventDefault();
-                alert("Les mots de passes sont différents");
+                renderAlertJS("Les mots de passes sont différents", "errors") 
                 return false;
             }
         }

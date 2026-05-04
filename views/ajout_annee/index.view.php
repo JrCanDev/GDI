@@ -41,24 +41,25 @@ include "$root/inc/head.php";
               console.log(response)
               response = JSON.parse(response)
               if (response.error != undefined) {
-                alert(response.error)
+                renderAlertJS(response.error, "errors") 
               } else {
-                alert(response.success)
+                renderAlertJS(response.success, "confirm") 
                 window.location.href = 'index.php'
               }
             },
             error: function(response) {
-              alert('Impossible de contacter le serveur');
+              renderAlertJS('Impossible de contacter le serveur', "errors")
             },
           });
         } else {
-          alert("L'année existe déjà");
+          renderAlertJS("L'année existe déjà", "errors")
+          
         }
       } else {
-        alert("Mauvais séparateur ('-')");
+        renderAlertJS("Mauvais séparateur ('-')", "errors")
       }
 		} else {
-      alert("Le format d'année n'est pas correct (ex: 2024-2025)");
+      renderAlertJS("Le format d'année n'est pas correct (ex: 2024-2025)", "errors")
     }
 	}
 
