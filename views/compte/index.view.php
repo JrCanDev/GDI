@@ -23,9 +23,11 @@ include "$root/inc/head.php";
             echo implode(', ', $roles);
             ?>
         </p>
+        <p><strong>Mot de passe :</strong> 
+            <a href="index.php?page=MAJMotDePasse" class="w3-button w3-blue w3-round-large">Changer de mot de passe</a>
+        </p>
+
     </div>
-    
-    <!-- bouton changer le mot de passe ici --> 
 </div>
 
 <?php

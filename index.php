@@ -35,6 +35,10 @@ switch (GETPOST('page')) {
     include "$root/controllers/compte/index.controller.php";
     break;
 
+  case 'MAJMotDePasse':
+    include "$root/controllers/MAJMotDePasse/index.controller.php";
+    break;
+
     case null:
     include "$root/controllers/accueil/index.controller.php";
     break;
