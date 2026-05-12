@@ -1,4 +1,5 @@
 <?php 
+require_once "$root/controllers/mail/updatePassword.controller.php";
 
 /**
  * Met à jour le mot de passe de l'utilisateur connecté.
@@ -38,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mesgs']['errors'][] = "Les mots de passe ne correspondent pas.";
     } else {
         if (MAJMotDePasse($newPwd)) {
+            sendUpdatePasswordMail(); // envoi du mail de confirmation 
+
             $_SESSION['mesgs']['confirm'][] = "Mot de passe mis à jour avec succès.";
             header('Location: index.php?page=compte');
             exit();

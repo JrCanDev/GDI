@@ -1,10 +1,6 @@
 <?php
 /**
  * Ce fichier envoie du HTML par mail. 
- * 
- * regarder les autre .html dans /controllers/mail pour avoir le détaille des 
- * mail envoyer 
- * 
  */
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -13,12 +9,15 @@ use PHPMailer\PHPMailer\SMTP;
 
 
 /**
- * Envoie le fichier .html par mail au destinataire 
+ * Envoie un email au format HTML avec des images intégrées. REMARQUE : le titre du mail = balise <title> du html 
+ *
+ * @param string $cheminHTML Chemin vers le fichier HTML a envoyer
+ * @param array  $imageTAB   Tableau de string contenant les chemins des images 
+ * @param string $destEmail  Adresse email du destinataire
  * 
- * @param string $cheminHTML le chemin du fichier html a envoyer 
- * @param string $destEmail L'adresse mail du destinataire 
+ * @return bool Retourne true si l'envoi a réussi, false sinon.
  */
-function sendMail($cheminHTML, $destEmail){
+function sendMail($cheminHTML, $imageTAB, $destEmail){
     global $root;
     $mail = new PHPMailer(true);
 
@@ -39,41 +38,31 @@ function sendMail($cheminHTML, $destEmail){
         
         // --- CONTENU ---
         $mail->isHTML(true); 
-        $mail->Subject = 'Confirmation de changement de mot de passe';
-        
-        // Ajout de l'image en tant qu'image embarquée
-        $mail->addEmbeddedImage("$root/img/logo.png", 'logo_gdi');
         
         // Chargement du contenu HTML depuis le fichier
         $htmlContent = file_get_contents($cheminHTML);
+
+        // Extraction du titre du HTML (balise <tittle>) pour l'utiliser comme sujet du mail 
+        if (preg_match('/<title>(.*?)<\/title>/is', $htmlContent, $matches)) {
+            $mail->Subject = trim($matches[1]);
+        } else {
+            $mail->Subject = 'Notification GDI'; // Sujet par défaut si <title> absent
+        }
         
-        // On remplace le chemin relatif par le CID
-        $htmlContent = str_replace('./img/logo.png', 'cid:logo_gdi', $htmlContent);
+        // Ajout d'image a importer : chemin de l'image = "$root/img/logo.png" --> son CID est "logo" 
+        foreach ($imageTAB as $image) {
+            $cid = pathinfo($image, PATHINFO_FILENAME);
+            $mail->addEmbeddedImage($image, $cid); 
+        }
         
         $mail->Body = $htmlContent;
-
         
         $mail->send();
 
-        $_SESSION['mesgs']['confirm'][] = "Email envoyer :D (a supprimer ici on s'en blc)"; 
+        $_SESSION['mesgs']['confirm'][] = "Email envoyé"; 
         return true;
     } catch (Exception $e) {
-        // Log de l'erreur ou gestion selon les besoins
-        $_SESSION['mesgs']['errors'][] = $mail->ErrorInfo;
+        $_SESSION['mesgs']['errors'][] = "Erreur mail : " . $e->getMessage();
         return false;
     }
 }
-
-
-if (isset($_POST['send_update_mail'])) {
-
-    // récupération du mail de l'user  
-    $db = require "$root/lib/pdo.php";
-    $stmt = $db->prepare("SELECT mail_ens FROM enseignants e JOIN utilisateurs u ON e.id_ens = u.id_ens WHERE u.nom_util = :login");
-    $stmt->execute([':login' => $_SESSION['login']]);
-    $userMail = $stmt->fetchColumn();
-
-    sendMail("$root/controllers/mail/updatePassword.html", $userMail);
-}
-
-include "$root/views/mail/index.view.php";
