@@ -13,12 +13,28 @@ use PHPMailer\PHPMailer\SMTP;
  *
  * @param string $cheminHTML Chemin vers le fichier HTML a envoyer
  * @param array  $imageTAB   Tableau de string contenant les chemins des images 
- * @param string $destEmail  Adresse email du destinataire
+ * @param string $destEmail  Adresse email du destinataire : Si null alors on récupére l'email (si admin alors email du .env)
  * 
  * @return bool Retourne true si l'envoi a réussi, false sinon.
  */
-function sendMail($cheminHTML, $imageTAB, $destEmail){
+function sendMail($cheminHTML, $imageTAB, $destEmail = NULL){
     global $root;
+
+    if (!$destEmail) {
+        // récupération du mail de l'user  
+        $db = require "$root/lib/pdo.php";
+
+        $stmt = $db->prepare("SELECT mail_ens FROM enseignants e JOIN utilisateurs u ON e.id_ens = u.id_ens WHERE u.nom_util = :login");
+        $stmt->execute([':login' => $_SESSION['login']]);
+        $userMail = $stmt->fetchColumn();
+
+        // Si pas d'email et compte admin alors utiliser l'email de test du .env
+        if (!$userMail && $_SESSION['login'] == 'admin_nom') {
+            $userMail = $_ENV['MAIL_TEST']; 
+        }
+        $destEmail = $userMail;
+    }
+
     $mail = new PHPMailer(true);
 
     try {
