@@ -14,10 +14,10 @@ use PHPMailer\PHPMailer\SMTP;
  * @param string $cheminHTML Chemin vers le fichier HTML a envoyer
  * @param array  $imageTAB   Tableau de string contenant les chemins des images 
  * @param string $destEmail  Adresse email du destinataire : Si null alors on récupére l'email (si admin alors email du .env)
- * 
+ * @param string $param1     Paramètre à insérer (remplace '{{token_jwt}}' dans le HTML)
  * @return bool Retourne true si l'envoi a réussi, false sinon.
  */
-function sendMail($cheminHTML, $imageTAB, $destEmail = NULL){
+function sendMail($cheminHTML, $imageTAB, $destEmail = NULL, $param = NULL) {
     global $root;
 
     if (!$destEmail) {
@@ -58,6 +58,11 @@ function sendMail($cheminHTML, $imageTAB, $destEmail = NULL){
         // Chargement du contenu HTML depuis le fichier
         $htmlContent = file_get_contents($cheminHTML);
 
+        // Insertion du paramètre si présent
+        if ($param) {
+            $htmlContent = str_replace('{{param}}', $param, $htmlContent);
+        }
+
         // Extraction du titre du HTML (balise <tittle>) pour l'utiliser comme sujet du mail 
         if (preg_match('/<title>(.*?)<\/title>/is', $htmlContent, $matches)) {
             $mail->Subject = trim($matches[1]);
@@ -75,7 +80,7 @@ function sendMail($cheminHTML, $imageTAB, $destEmail = NULL){
         
         $mail->send();
 
-        $_SESSION['mesgs']['confirm'][] = "Email envoyé"; 
+        // $_SESSION['mesgs']['confirm'][] = "Email envoyé"; 
         return true;
     } catch (Exception $e) {
         $_SESSION['mesgs']['errors'][] = "Erreur mail : " . $e->getMessage();
