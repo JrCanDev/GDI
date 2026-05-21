@@ -25,4 +25,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Affichage de la vue
-include "$root/views/MAJMotDePasse/index.view.php";
+include "$root/views/motDePasse/updatePassword.view.php";
