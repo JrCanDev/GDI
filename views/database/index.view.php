@@ -8,9 +8,18 @@ include "$root/inc/head.php";
 </div>
 
 <script>
+  // Javascrypt : obligation de mettre dans un fichier exécuté par le client
+
+  window.db_listFK = <?= json_encode($LISTFK) ?>;
+  window.db_listMetadatas = <?= json_encode($LISTMETADATAS) ?>;
+
   //Scripts to enable the db manipulations to work
     //Create a new row in the table to prepare for an insert
   function newValue(tableName, metadata) {
+    if (!metadata){ 
+      metadata = window.db_listMetadatas[tableName]; // si pas de métadonnée (null) alors on lit la variable globale 
+    } 
+
     if ($('#new-input-row-' + tableName).length) {
       temporaryAlert('warning', tableName, 'Il existe déjà une insertion en attente', 10);
     } else {
@@ -36,6 +45,10 @@ include "$root/inc/head.php";
 
     //Applies an input to each cell of a chosen row in the table to prepare for a modification
   function modifyValue(tableName, metadata, nbRow, values) {
+    if (!metadata){ 
+      metadata = window.db_listMetadatas[tableName]; // si pas de métadonnée (null) alors on lit la variable globale 
+    } 
+
     $.ajax({
       url: 'controllers/database/tables/prepareModifyValue.php',
       type: 'GET',
@@ -61,6 +74,10 @@ include "$root/inc/head.php";
 
     //Save the new values or modified values of a table if confirmed, or discards them if not
   function saveValue(tableName, metadata, accept, isNewValue, nbRow=0, values={}) {
+    if (!metadata){ 
+      metadata = window.db_listMetadatas[tableName]; // si pas de métadonnée (null) alors on lit la variable globale 
+    } 
+
     if (accept) {
 
       var newValues = {};
@@ -177,7 +194,7 @@ include "$root/inc/head.php";
                         row: nbRow,
                         values: finalValues,
                         columnMetadata: metadata,
-                        listFK: <?= json_encode($listFK) ?>
+                        listFK: window.db_listFK
                       },
                       success: function(response) {
                         $('#tr-' + tableName + '-' + nbRow).html(response);
@@ -239,6 +256,15 @@ include "$root/inc/head.php";
 
     //Delete a row from the table after confirmation
   function deleteValue(tableName, metadata, listFK, nbRow, values) {
+    if (!metadata){ 
+      metadata = window.db_listMetadatas[tableName]; // si pas de métadonnée (null) alors on lit la variable globale 
+    } 
+    
+    if (!listFK){
+      listFK = window.db_listFK; // si pas de liste de clé étrangère (null) alors on lit la variable globale 
+    } 
+
+
     $('#tr-' + tableName + '-' + nbRow).css({backgroundColor: 'red'});
     setTimeout(function() {
 
@@ -286,13 +312,17 @@ include "$root/inc/head.php";
 
     //Refresh the values of a chosen table
   function refreshValues(tableName, metadata) {
+    if (!metadata){ 
+      metadata = window.db_listMetadatas[tableName]; // si pas de métadonnée (null) alors on lit la variable globale 
+    } 
+    
     $.ajax({
       url: 'controllers/database/tables/refreshValues.php',
       type: 'GET',
       data: {
         tableName: tableName,
         columnMetadata: metadata,
-        listFK: <?= json_encode($listFK) ?>,
+        listFK: window.db_listFK,
         sort: sortStates[tableName]
       },
       success: function(response) {
@@ -316,7 +346,7 @@ include "$root/inc/head.php";
     const query = currentInput.val();
     const table = currentInput.data('table');
     const column = currentInput.attr('id').replace('input-', '');
-    const column_fk_list = <?= json_encode($listFK) ?>;
+    const column_fk_list = window.db_listFK;
     
     let fkEntry = column_fk_list[table]?.find(entry => entry.column_name === column);
     if (!fkEntry) {
