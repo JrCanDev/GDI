@@ -52,6 +52,9 @@ $preventBackground = true;
                         ?>
                         <button onclick="event.preventDefault(); redirectToRegister()" class="w3-blue-gray w3-button"><b>Créer un utilisateur</b></button>
                     </div>
+                    <div class="w3-margin">
+                        <a href="index.php?page=motDePasseOublie" class="w3-text-blue">Mot de passe oublié</a>
+                    </div>
                 </div>
             </form>
         </div>

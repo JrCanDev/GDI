@@ -30,6 +30,22 @@ switch (GETPOST('page')) {
   case 'new_year':
     include "$root/controllers/ajout_annee/index.controller.php";
     break;
+  
+  case 'compte':
+    include "$root/controllers/compte/index.controller.php";
+    break;
+
+  case 'MAJMotDePasse':
+    include "$root/controllers/motDePasse/updatePassword.controller.php";
+    break;
+
+  case 'motDePasseOublie':
+    include "$root/controllers/motDePasse/forgetPassword.controller.php";
+    break;
+
+  case 'resetMdp':
+    include "$root/controllers/motDePasse/resetPassword.controller.php";
+    break;
 
     case null:
     include "$root/controllers/accueil/index.controller.php";
