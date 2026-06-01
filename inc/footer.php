@@ -1,13 +1,6 @@
 </div>
 <div style="left:0;"></div>
 <?php
-session_start();
-$errors = isset($_SESSION['mesgs']['errors']) ? $_SESSION['mesgs']['errors'] : [];
-$confirms = isset($_SESSION['mesgs']['confirm']) ? $_SESSION['mesgs']['confirm'] : [];
-$errors = json_encode($errors);
-$confirms = json_encode($confirms);
-unset($_SESSION['mesgs']['errors']);
-unset($_SESSION['mesgs']['confirm']);
 
 if ($db) {
     $db = NULL;
@@ -17,25 +10,6 @@ if ($db) {
 <div class="spacer" <?= $preventBackground ? '' : 'style="background: lightgrey ;"'?>></div>
 
 <script>
-  var errors = <?= $errors ?>;
-  var confirms = <?= $confirms ?>;
-
-  setTimeout(function() {
-    if (errors != "") {
-      errors.forEach(error => {
-        alert(error);
-      });
-    }
-  }, 300);
-
-  setTimeout(function() {
-    if (confirms != "") {
-      confirms.forEach(confirm => {
-        alert(confirm);
-      });
-    }
-  }, 300);
-
   window.addEventListener('load', adjustSpacer);
   window.addEventListener('resize', adjustSpacer);
 
