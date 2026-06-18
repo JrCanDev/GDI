@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/inc/flashMessages.php';
+require_once dirname(__FILE__) . '/inc/log.php';
 require_once dirname(__FILE__) . '/lib/security.lib.php';
 require_once dirname(__FILE__) . '/lib/project.lib.php';
 include_once dirname(__FILE__) . '/vendor/autoload.php';
@@ -25,6 +26,10 @@ switch (GETPOST('page')) {
 
     case 'bd':
     include "$root/controllers/database/index.controller.php";
+    break;
+
+  case 'logs':
+    include "$root/controllers/logs/index.controller.php";
     break;
 
   case 'new_year':
