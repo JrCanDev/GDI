@@ -1,6 +1,6 @@
 <?php 
 require_once "$root/controllers/motDePasse/index.controller.php";
-require_once "$root/controllers/mail/updatePassword.controller.php";
+require_once "$root/controllers/mail/index.controller.php";
 
 // Traitement du formulaire de changement de mot de passe
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
