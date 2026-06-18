@@ -18,6 +18,9 @@ $preventBackground = true;
 </head>
 
 <body>
+    <?php require_once(dirname(__FILE__) . '/inc/flashMessages.php'); 
+    displayFlashMessages(); // on lance le système de notification (obligation de le faire dans un body) ?>
+
     <div class="maincontent w3-center">
         <div class="dtitle w3-container main-background-color">
             <h1>Inscription</h1>
@@ -74,7 +77,7 @@ $preventBackground = true;
             let pswc = document.forms["registerForm"]["pswconfirm"].value;
             if (psw != pswc) {
                 event.preventDefault();
-                alert("Les mots de passes sont différents");
+                renderAlertJS("Les mots de passes sont différents", "errors") 
                 return false;
             }
         }

@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/inc/flashMessages.php';
+require_once dirname(__FILE__) . '/inc/log.php';
 require_once dirname(__FILE__) . '/lib/security.lib.php';
 require_once dirname(__FILE__) . '/lib/project.lib.php';
 include_once dirname(__FILE__) . '/vendor/autoload.php';
@@ -26,8 +28,28 @@ switch (GETPOST('page')) {
     include "$root/controllers/database/index.controller.php";
     break;
 
+  case 'logs':
+    include "$root/controllers/logs/index.controller.php";
+    break;
+
   case 'new_year':
     include "$root/controllers/ajout_annee/index.controller.php";
+    break;
+  
+  case 'compte':
+    include "$root/controllers/compte/index.controller.php";
+    break;
+
+  case 'MAJMotDePasse':
+    include "$root/controllers/motDePasse/updatePassword.controller.php";
+    break;
+
+  case 'motDePasseOublie':
+    include "$root/controllers/motDePasse/forgetPassword.controller.php";
+    break;
+
+  case 'resetMdp':
+    include "$root/controllers/motDePasse/resetPassword.controller.php";
     break;
 
     case null:

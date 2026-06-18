@@ -34,7 +34,10 @@
     <p class="title"><b><?= isset($pageTitle) ? sanitize($pageTitle) : 'Gestion du Département informatique' ?></b></p>
   </div>
   <div class="w3-padding w3-display-topright w3-margin" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
-    <h4 class="title" style="padding-right: 20px"><?= $_SESSION['user']['nom_ens'] == 'admin_nom' ? 'admin' : sanitize($_SESSION['user']['nom_ens']) . " " . sanitize($_SESSION['user']['prenom_ens'])?></h4>
+    <a href="index.php?page=compte" style="text-decoration: none; display: flex; align-items: center; color: inherit;" class="w3-hover-text-blue"> 
+    <i class="fa-solid fa-circle-user w3-left title" style="font-size: max(28px, 3.8vw); padding-right: 10px;"></i>
+      <h4 class="title" style="padding-right: 20px; margin: 0;"><?= $_SESSION['user']['nom_ens'] == 'admin_nom' ? 'admin' : sanitize($_SESSION['user']['nom_ens']) . " " . sanitize($_SESSION['user']['prenom_ens'])?></h4>
+    </a>
     <img src="/img/exit.png" class="clickable" alt="exit" id="disconnectImg" style="height: 50px">
   </div>
 </div>
@@ -76,6 +79,12 @@
       <input type='hidden' name='page' value='bd'>
       <button type='submit' class="w3-bar-item w3-button headButton">
         <b>Base de données</b>
+      </button>
+    </form>
+    <form method='GET'>
+      <input type='hidden' name='page' value='logs'>
+      <button type='submit' class="w3-bar-item w3-button headButton">
+        <b>Logs</b>
       </button>
     </form>
     <?php } ?>
