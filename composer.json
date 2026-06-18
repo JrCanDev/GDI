@@ -3,14 +3,15 @@
         "vlucas/phpdotenv": "^5.6",
         "phpoffice/phpspreadsheet": "1.8.0",
         "phpmailer/phpmailer": "^7.0",
-        "firebase/php-jwt": "^6.0"
+        "firebase/php-jwt": "^6.0",
+        "monolog/monolog": "^2.11"
     },
     "config": {
         "platform": {
             "php": "7.4.0"
         },
         "audit": {
-            "block-insecure": false // autorise l'utilisation de php-jwt avec php 7.4 (insecure car pas la dernière version)
+            "block-insecure": false 
         }
     }
 }
