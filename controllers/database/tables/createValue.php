@@ -1,5 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root . '/inc/log.php';
 include_once $root . '/vendor/autoload.php';
 require_once $root . '/lib/project.lib.php';
 $db = require $root . '/lib/pdo.php';
@@ -47,11 +48,18 @@ try {
   }
 
   $db->commit();
+
+  // Écriture du log avec les données insérées
+  write_log(domain: 'addDatabase', table: $tableName, dataAfter: $values);
+
   echo json_encode(['success' => "Valeurs insérées avec succés"]);
 
 } catch (Throwable $e) {
-  $db->rollBack();
+  if ($db && $db->inTransaction()) {
+    $db->rollBack();
+  }
   $db = null;
+  write_log(domain: 'error', message: "Table: $tableName. Erreur lors de l'insertion : " . $e->getMessage());
   die(json_encode(['ERROR' => 'Erreur: ' . $e->getMessage() . ' ligne -> ' . $e->getLine() . ' File - ' . $e->getFile()]));
 }
 $db = null;

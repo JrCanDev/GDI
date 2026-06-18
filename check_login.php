@@ -11,6 +11,7 @@ if (GETPOST('debug') == true) {
 }
 
 require_once(dirname(__FILE__) . '/class/authClass.php');
+require_once dirname(__FILE__) . '/inc/log.php';
 
 if (isset($_POST['connect'])) {
     $uname = $_POST['uname'];
@@ -23,6 +24,7 @@ if (isset($_POST['connect'])) {
         $_SESSION['titulaire'] = $user['titulaire_ens'];
         $_SESSION['admin'] = $user['admin'];
         $_SESSION['user'] = $user;
+        write_log(domain: 'login', username: $user['nom_util']);
     }
     else{
         $_SESSION['mesgs']['errors'][] = 'Identification impossible';

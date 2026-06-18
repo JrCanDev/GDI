@@ -1,5 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root . '/inc/log.php';
 include_once $root . '/vendor/autoload.php';
 require_once $root . '/lib/project.lib.php';
 $db = require $root . '/lib/pdo.php';
@@ -79,9 +80,14 @@ try {
   if ($affectedRows === 0) {
     die(json_encode(['warning' => "Rien n'a été supprimé"]) );
   }
+
+  // Écriture du log avec les données supprimées
+  write_log(domain: 'removeDatabase', table: $tableName, dataBefore: $values);
+
   echo json_encode(['success' => $affectedRows]);
   $db = null;
 } catch (Throwable $e) {
   $db = null;
+  write_log(domain: 'error', message: "Table: $tableName. Erreur lors de la suppression : " . $e->getMessage());
   die(json_encode(['error' => 'Erreur: ' . $e->getMessage() . ' ligne -> ' . $e->getLine() . ' File - ' . $e->getFile()]));
 }

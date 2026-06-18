@@ -1,5 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+require_once "$root/inc/log.php";
 include_once "$root/vendor/autoload.php";
 require_once "$root/lib/project.lib.php";
 $db = require "$root/lib/pdo.php";
@@ -95,8 +96,12 @@ try {
 
   echo json_encode(['success' => 'valeurs copiées']);
   $db->commit();
+  write_log(domain: 'addDatabase', table: 'annee_scolaire', dataAfter: "id_as : $new_year");
 } catch (Throwable $e) {
-  $db->rollback();
+  if ($db && $db->inTransaction()) {
+    $db->rollback();
+  }
+  write_log(domain: 'error', message: "Erreur lors de la copie de l'année scolaire de $old_year vers $new_year : " . $e->getMessage());
   die(json_encode(['error' => 'Erreur: ' . $e->getMessage()]));
 }
 $db = null;
