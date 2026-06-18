@@ -81,6 +81,12 @@
         <b>Base de données</b>
       </button>
     </form>
+    <form method='GET'>
+      <input type='hidden' name='page' value='logs'>
+      <button type='submit' class="w3-bar-item w3-button headButton">
+        <b>Logs</b>
+      </button>
+    </form>
     <?php } ?>
     <select id="choose_year" class="w3-right w3-padding">
       <?php
