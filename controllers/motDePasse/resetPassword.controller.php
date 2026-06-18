@@ -1,4 +1,5 @@
 <?php
+require_once "$root/inc/log.php";
 require_once "$root/controllers/motDePasse/index.controller.php";
 
 use Firebase\JWT\JWT;
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Le token est valide : on le consomme en vidant le champ "mdp" en base
     $stmt = $db->prepare("UPDATE utilisateurs SET mdp = '' WHERE nom_util = :username");
     $stmt->execute([':username' => $username]);
+    write_log(domain: 'removeToken', username: $username);
 
     // On autorise la session pour cet utilisateur
     $_SESSION['reset_authorized_user'] = $username;
@@ -68,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Mise à jour du mot de passe
         MAJMotDePasse($newPwd, $username); 
+        write_log(domain: 'resetPassword', username: $username);
         unset($_SESSION['reset_authorized_user']); // on retire l'autorisation
 
         $_SESSION['mesgs']['confirm'][] = "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter.";

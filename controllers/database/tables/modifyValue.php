@@ -1,5 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root . '/inc/log.php';
 include_once $root . '/vendor/autoload.php';
 require_once $root . '/lib/project.lib.php';
 $db = require $root . '/lib/pdo.php';
@@ -61,11 +62,16 @@ try {
   }
 
   $db->commit();
+
+  // Écriture du log avec les données modifiées (anciennes et nouvelles)
+  write_log(domain: 'updateDatabase', table: $tableName, dataBefore: $oldValues, dataAfter: $values);
+
   echo json_encode(['success' => "Valeurs modifiées avec succés"]);
 
 } catch (Throwable $e) {
   $db->rollBack();
   $db = null;
+  write_log(domain: 'error', message: "Table: $tableName. Erreur lors de la modification : " . $e->getMessage());
   die(json_encode(['error' => 'Erreur: ' . $e->getMessage() . ' ligne -> ' . $e->getLine() . ' File - ' . $e->getFile()]));
 }
 $db = null;

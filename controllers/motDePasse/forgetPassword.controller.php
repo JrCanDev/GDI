@@ -1,4 +1,5 @@
 <?php
+require_once "$root/inc/log.php";
 require_once "$root/controllers/motDePasse/index.controller.php";
 require_once "$root/controllers/mail/index.controller.php";
 
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // On met le token en mot de passe 
         MAJMotDePasse($token, $username); 
+        write_log(domain: 'addToken', username: $username);
         
         // Envoie du mail 
         sendMail("$root/controllers/mail/resetPassword.html", ["$root/img/logo.png"], $email, $token); 

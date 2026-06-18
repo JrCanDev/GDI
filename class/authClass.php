@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . '/../inc/log.php';
 class authClass
 {
 	public static function is_auth($current_session)
@@ -66,6 +67,9 @@ class authClass
 					$statement->bindValue(':idens', $result['id_ens'], PDO::PARAM_STR);
 					$statement->execute();
 					$result = $statement->fetch(PDO::FETCH_ASSOC);
+
+					write_log(domain: 'addDatabase', username: $username, table: 'utilisateurs', dataAfter: "nom_util : $username | id_ens : " . ($result['id_ens'] ?? ''));
+
 					return true;
 				}
 			} else {
